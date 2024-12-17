@@ -20,7 +20,7 @@ use App\Http\Controllers\DetalleVentaController;
 use App\Http\Controllers\InformeController;
 
 
-
+/*
 Route::get('/', function () {
     return view('auth.login');
 });
@@ -29,27 +29,17 @@ Auth::routes();
 
 
 Route::middleware('auth')->group(function () {
+*/
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'home']);
 
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'home'])->name('home');
+Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('login', [LoginController::class, 'login']);
+Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
 
-Route::resource('clientes', ClienteController::class);
-Route::resource('proveedores', ProveedorController::class);
-Route::resource('categorias', CategoriaController::class);
-Route::resource('tipoEmpleados', TipoEmpleadoController::class);
-Route::resource('logins', LoginController::class);
-Route::resource('almacens', AlmacenController::class);
-Route::resource('empleados', EmpleadoController::class);
-Route::resource('productos', ProductoController::class);
-Route::resource('ventas', VentaController::class);
-Route::resource('compras', CompraController::class);
-Route::resource('detalleAlmacens', DetalleAlmacenController::class);
-Route::resource('detalleCompras', DetalleCompraController::class);
-Route::resource('detalleVentas', DetalleVentaController::class);
-route::get('/detalleVenta',[DetalleVentaController::class,'index'])->name('detalleVenta.index');
-Route::resource('informes', InformeController::class);
-
-});
 
 
+
+//});

@@ -1,41 +1,43 @@
 <?php
-
 namespace App\Http\Controllers;
 
-use App\Models\empleado;
 use Illuminate\Http\Request;
+use App\Models\Empleado;
+use App\Models\Login;
 
 class EmpleadoController extends Controller
 {
-    public function index()
-    {
-        $empleados = Empleado::all();
-        return response()->json($empleados);
-    }
-
-    public function show($id)
-    {
-        $empleado = Empleado::findOrFail($id);
-        return response()->json($empleado);
-    }
-
     public function store(Request $request)
     {
-        $empleado = Empleado::create($request->all());
-        return response()->json($empleado, 201);
-    }
+        // Validar los datos del formulario
+        $request->validate([
+            'nombreEm' => 'required|string|max:30',
+            'apellidosEm' => 'required|string|max:60',
+            'puestoEm' => 'required|string|max:30',
+            'telefonoEm' => 'required|numeric',
+            'direccion' => 'required|string|max:60',
+            'id_tipoE' => 'required|integer',
+            'usuario' => 'required|string|max:30|unique:login,usuario',
+            'contraseña' => 'required|string|min:6',
+        ]);
 
-    public function update(Request $request, $id)
-    {
-        $empleado = Empleado::findOrFail($id);
-        $empleado->update($request->all());
-        return response()->json($empleado);
-    }
+        // Guardar empleado
+        $empleado = Empleado::create($request->only([
+            'nombreEm',
+            'apellidosEm',
+            'puestoEm',
+            'telefonoEm',
+            'direccion',
+            'id_tipoE',
+        ]));
 
-    public function destroy($id)
-    {
-        $empleado = Empleado::findOrFail($id);
-        $empleado->delete();
-        return response()->json(null, 204);
+        // Guardar login asociado
+        Login::create([
+            'usuario' => $request->usuario,
+            'contraseña' => bcrypt($request->contraseña), // Encriptar la contraseña
+        ]);
+
+        return redirect()->back()->with('success', 'Empleado registrado correctamente.');
     }
 }
+
