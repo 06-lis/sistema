@@ -1,31 +1,14 @@
 <?php
-// app/Http/Controllers/EmpleadoController.php
+
 namespace App\Http\Controllers;
 
 use App\Models\Empleado;
 use App\Models\Login;
-use App\Models\TipoEmpleado;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class EmpleadoController extends Controller
 {
-
-    public function index()
-    {
-        return view('registarEmpleado.index');
-    }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $tiposEmpleados = TipoEmpleado::all(); // Traer todos los tipos de empleados para el selector
-        return view('registrarEmpleado.create', compact('tiposEmpleados'));
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -47,23 +30,26 @@ class EmpleadoController extends Controller
         ]);
 
         // Crear un nuevo empleado
-        $empleado = Empleado::create([
+        $empleado = new Empleado([
             'nombreEm' => $request->input('nombreEm'),
             'apellidosEm' => $request->input('apellidosEm'),
             'puestoEm' => $request->input('puestoEm'),
             'telefonoEm' => $request->input('telefonoEm'),
             'direccion' => $request->input('direccion'),
             'id_tipoE' => $request->input('id_tipoE'),
-            'usuarui' => $request->input('usuario'), // Relacionar la tabla login con el id del empleado
+            'usuario' => $request->input('usuario'),
+            'contrasena' => Hash::make($request->input('contrasena')), // Hashear la contraseña antes de guardarla
         ]);
 
-        // Crear un nuevo usuario y contraseña en la tabla login
+        // Guardar el empleado
+        $empleado->save();
+
+        // Crear un nuevo registro en la tabla login
         Login::create([
             'usuario' => $request->input('usuario'),
-            'contraseña' => Hash::make($request->input('contrasena')), // Hashear la contraseña
- 
+            'contraseña' => $empleado->contrasena, // Usa el campo 'contrasena' de $empleado
         ]);
 
-        return redirect()->route('registarEmpleado.index')->with('success', 'Empleado creado correctamente');
+        return redirect()->route('empleado.index')->with('success', 'Empleado creado correctamente');
     }
 }

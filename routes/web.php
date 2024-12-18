@@ -20,7 +20,7 @@ use App\Http\Controllers\DetalleVentaController;
 use App\Http\Controllers\InformeController;
 
 
-/*
+
 Route::get('/', function () {
     return view('auth.login');
 });
@@ -29,17 +29,22 @@ Auth::routes();
 
 
 Route::middleware('auth')->group(function () {
-*/
+
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'home']);
 
 
-Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
-Route::post('login', [LoginController::class, 'login']);
-Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+
+Route::resource('/prueva','home');
+
+
+//registar empleado rutas
+
+Route::get('/registrar', [EmpleadoController::class, 'create'])->name('create');
+Route::post('/registrar', [EmpleadoController::class, 'store'])->name('store');
+Route::get('/regiistrar', [EmpleadoController::class, 'index'])->name('index'); // Página de empleados
 
 
 
 
-
-//});
+});
