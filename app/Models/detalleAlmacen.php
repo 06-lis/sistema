@@ -27,7 +27,7 @@ class detalleAlmacen extends Model
 
     public function detalleCompra()
     {
-        return $this->hasMayny(detalleCompra::Class, ['id_producto', 'id_almacen']);
+        return $this->hasMany(detalleCompra::class, ['id_producto', 'id_almacen']);
     }
 
     public function detalleVenta()

@@ -33,18 +33,11 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'home']);
 
-
-
-Route::resource('/prueva','home');
-
-
 //registar empleado rutas
-
-Route::get('/registrar', [EmpleadoController::class, 'create'])->name('create');
-Route::post('/registrar', [EmpleadoController::class, 'store'])->name('store');
-Route::get('/regiistrar', [EmpleadoController::class, 'index'])->name('index'); // Página de empleados
-
-
-
-
+    route::get('/empleado', [EmpleadoController::class, 'index'])->name('home');
+    route::get('/empleado/crear', [EmpleadoController::class, 'create'])->name('home');
+    route::post('/empleado/guardar',[EmpleadoController::class, 'store'])->name('home');
+    route::get('/empleado/{id}/editar',[EmpleadoController::class, 'edit'])->name('home');
+    route::Put('/empleado/{id}/actualizar', [EmpleadoController::class, 'update'])->name('home');
+    route::delete('/empleado/{id}/eliminar', [EmpleadoController::class, 'destroy'])->name('home');
 });

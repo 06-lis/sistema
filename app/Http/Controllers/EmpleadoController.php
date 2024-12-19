@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Empleado;
 use App\Models\Login;
 use App\Models\TipoEmpleado;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -13,7 +14,8 @@ class EmpleadoController extends Controller
 
     public function index()
     {
-        return view('registarEmpleado.index');
+        $empleados= empleado::all();
+        return view('empleado.index')->with('empleados',$empleados);
     }
     /**
      * Show the form for creating a new resource.
@@ -22,8 +24,7 @@ class EmpleadoController extends Controller
      */
     public function create()
     {
-        $tiposEmpleados = TipoEmpleado::all(); // Traer todos los tipos de empleados para el selector
-        return view('registrarEmpleado.create', compact('tiposEmpleados'));
+        return view('empleado.create');
     }
 
     /**
@@ -34,36 +35,46 @@ class EmpleadoController extends Controller
      */
     public function store(Request $request)
     {
-        // Validación de los datos del formulario
-        $request->validate([
-            'nombreEm' => 'required|string|max:30',
-            'apellidosEm' => 'required|string|max:60',
-            'puestoEm' => 'required|string|max:30',
-            'telefonoEm' => 'required|integer',
-            'direccion' => 'required|string|max:60',
-            'id_tipoE' => 'required|exists:tipo_empleados,id_tipoE',
-            'usuario' => 'required|string|unique:logins,usuario|max:30',
-            'contrasena' => 'required|string|min:6', // Asegúrate de que la contraseña tenga al menos 6 caracteres
-        ]);
+        $empleados = new Empleado();
+            $empleados->nombreEm = $request->get('nombreEm');
+            $empleados->apellidosEm = $request->get('apellidosEm');
+            $empleados->sueldoEm = $request->get('sueldoEm');
+            $empleados->telefonoEm = $request->get('telefonoEm');
+            $empleados->direccion = $request->get('direccion');
+            $empleados->id_tipoE = $request->get('id_tipoE');
+            
+            $empleados->save();
 
-        // Crear un nuevo empleado
-        $empleado = Empleado::create([
-            'nombreEm' => $request->input('nombreEm'),
-            'apellidosEm' => $request->input('apellidosEm'),
-            'puestoEm' => $request->input('puestoEm'),
-            'telefonoEm' => $request->input('telefonoEm'),
-            'direccion' => $request->input('direccion'),
-            'id_tipoE' => $request->input('id_tipoE'),
-            'usuarui' => $request->input('usuario'), // Relacionar la tabla login con el id del empleado
-        ]);
-
-        // Crear un nuevo usuario y contraseña en la tabla login
-        Login::create([
-            'usuario' => $request->input('usuario'),
-            'contraseña' => Hash::make($request->input('contrasena')), // Hashear la contraseña
- 
-        ]);
-
-        return redirect()->route('registarEmpleado.index')->with('success', 'Empleado creado correctamente');
+        return redirect('/empleado');    
     }
+    
+    public function edit($id)
+    {
+            $empleado= empleado::find($id);
+            return view('empleado.edit')->with('empleado', $empleado);
+    }
+
+    public function update(request $request, $id)
+    {
+        $empleado = Empleado::find($id);
+
+        $empleado->nombreEm = $request->get('nombreEm');
+        $empleado->apellidosEm = $request->get('apellidosEm');
+        $empleado->sueldoEm = $request->get('sueldoEm');
+        $empleado->telefonoEm = $request->get('telefonoEm');
+        $empleado->direccion = $request->get('direccion');
+        $empleado->id_tipoE = $request->get('id_tipoE');
+            
+        $empleado->save();
+
+        return redirect('/empleado'); 
+    }
+
+    public function destroy($id)
+    {
+        $empleado= empleado::find($id);
+        $empleado->delete();
+        return redirect('/empleado');
+    }
+   
 }
