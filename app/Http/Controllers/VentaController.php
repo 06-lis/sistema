@@ -10,7 +10,7 @@ class VentaController extends Controller
     public function index()
     {
         $ventas = Venta::all();
-        return response()->json($ventas);
+        return view('venta.index')->with('ventas',$ventas);
     }
 
     public function show($id)
