@@ -24,7 +24,8 @@ class EmpleadoController extends Controller
      */
     public function create()
     {
-        return view('empleado.create');
+        $tipos=TipoEmpleado::all();
+        return view('empleado.create',compact('tipos'));
     }
 
     /**
@@ -51,7 +52,8 @@ class EmpleadoController extends Controller
     public function edit($id)
     {
             $empleado= empleado::find($id);
-            return view('empleado.edit')->with('empleado', $empleado);
+            $tipos=TipoEmpleado::all();
+            return view('empleado.edit',compact('empleado','tipos'));
     }
 
     public function update(request $request, $id)

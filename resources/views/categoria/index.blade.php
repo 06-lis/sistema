@@ -1,4 +1,4 @@
-@extends('layouts.plantillaBase')
+@extends('home')
 
 @section('contenido')
 <title>Botón con Ícono - Bootstrap</title>
@@ -7,7 +7,7 @@
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 
-    <h2 class="text-center">Lista De Categorias</h2>
+    <h2 style= "font-size: 5rem; font-family:'Times New Roman', Times, serif" class="text-center">Lista De Categorias</h2>
     <a href="/home" class="btn btn-primary"><i class="bi bi-arrow-left"></i> Volver</a>
     <a href="/categoria/crear" class="btn btn-primary"> Crear +</a>
     <table class="table table-dark table-striped mt-4">

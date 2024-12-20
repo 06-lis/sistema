@@ -1,11 +1,11 @@
-@extends('layouts.plantillaBase')
+@extends('home')
 
 @section ("contenido")
     
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="ruta-a-tu-archivo.css">
 
-    <h2>Registrar Nuevo Empleado</h2>
+    <h2 style= "font-size: 5rem; font-family:'Times New Roman', Times, serif" class="text-center">Registrar Nuevo Empleado</h2>
     <form action="/empleado/guardar" method="POST">
 
         <!-- CSRF Token (Laravel) -->
@@ -46,9 +46,9 @@
             <label for="id_tipoE" class="form-label">Tipo de Empleado:</label>
             <select id="id_tipoE" name="id_tipoE" class="form-select" required>
                 <option value="" disabled selected>Seleccione el tipo de empleado</option>
-                <option value="1">Administrador</option>
-                <option value="2">Encargado de ventas</option>
-                <option value="3">Encargado de compras</option>
+                @foreach ($tipos as $tipo)
+                    <option value={{$tipo->id_tipoE}}> {{$tipo->descripcionTip}} </option>
+                @endforeach
                 <!-- Agrega más opciones según los tipos disponibles -->
             </select>
         </div>

@@ -81,4 +81,25 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'home']);
     route::get('/almacen/{id}/editar',[AlmacenController::class, 'edit'])->name('home');
     route::Put('/almacen/{id}/actualizar', [AlmacenController::class, 'update'])->name('home');
     route::delete('/almacen/{id}/eliminar', [AlmacenController::class, 'destroy'])->name('home');
+    //rutas para producto
+    route::get('/producto', [ProductoController::class, 'index'])->name('home');
+    route::get('/producto/crear', [ProductoController::class, 'create'])->name('home');
+    route::post('/producto/guardar',[ProductoController::class, 'store'])->name('home');
+    route::get('/producto/{id}/editar',[ProductoController::class, 'edit'])->name('home');
+    route::Put('/producto/{id}/actualizar', [ProductoController::class, 'update'])->name('home');
+    route::delete('/producto/{id}/eliminar', [ProductoController::class, 'destroy'])->name('home');
+    //rutas para compra
+    route::get('/compra', [CompraController::class, 'index'])->name('home');
+    route::get('/compra/crear', [CompraController::class, 'create'])->name('home');
+    route::post('/compra/guardar',[CompraController::class, 'store'])->name('home');
+    route::get('/compra/{id}/editar',[CompraController::class, 'edit'])->name('home');
+    route::Put('/compra/{id}/actualizar', [CompraController::class, 'update'])->name('home');
+    route::delete('/compra/{id}/eliminar', [CompraController::class, 'destroy'])->name('home');
+    //rutas para detalle almacen
+    route::get('/detalleAl', [DetalleAlmacenController::class, 'index'])->name('home');
+    route::get('/detalleAl/crear', [DetalleAlmacenController::class, 'create'])->name('home');
+    route::post('/detalleAl/guardar',[DetalleAlmacenController::class, 'store'])->name('home');
+    route::get('/detalleAl/{id}/editar',[DetalleAlmacenController::class, 'edit'])->name('home');
+    route::Put('/detalleAl/{id}/actualizar', [DetalleAlmacenController::class, 'update'])->name('home');
+    route::delete('/detalleAl/{id}/eliminar', [DetalleAlmacenController::class, 'destroy'])->name('home');
 });

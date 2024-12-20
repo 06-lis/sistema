@@ -1,11 +1,11 @@
-@extends('layouts.plantillaBase')
+@extends('home')
 
 @section ("contenido")
     
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="ruta-a-tu-archivo.css">
 
-    <h2>Editar Datos Del Proveedor</h2>
+    <h2 style= "font-size: 5rem; font-family:'Times New Roman', Times, serif" class="text-center">Editar Datos Del Proveedor</h2>
     <form action="/proveedor/{{$proveedor->id_proveedor}}/actualizar" method="POST">
         @method('PUT')
         <!-- CSRF Token (Laravel) -->

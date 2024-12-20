@@ -1,11 +1,11 @@
-@extends('layouts.plantillaBase')
+@extends('home')
 
 @section ("contenido")
     
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="ruta-a-tu-archivo.css">
 
-    <h2>Registrar Nuevo Proveedor</h2>
+    <h2 style= "font-size: 5rem; font-family:'Times New Roman', Times, serif" class="text-center">Registrar Nuevo Proveedor</h2>
     <form action="/proveedor/guardar" method="POST">
 
         <!-- CSRF Token (Laravel) -->

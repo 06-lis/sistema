@@ -3,39 +3,56 @@
 namespace App\Http\Controllers;
 
 use App\Models\detalleAlmacen;
+use App\Models\almacen;
+use App\Models\producto;
 use Illuminate\Http\Request;
 
 class DetalleAlmacenController extends Controller
 {
     public function index()
     {
-        $detallesAlmacens = DetalleAlmacen::all();
-        return response()->json($detallesAlmacens);
+        $detalles = DetalleAlmacen::all();
+        $almacens =almacen::all();
+        $productos=producto::all();
+
+        return view('detalleAl.index',compact('detalles','almacens','productos'));
     }
 
-    public function show($id)
+    public function create()
     {
-        $detalleAlmacen = DetalleAlmacen::findOrFail($id);
-        return response()->json($detalleAlmacen);
+        $almacens =almacen::all();
+        $productos=producto::all();
+        return view('detalleAl.create',compact('almacens','productos'));
+    }
+    public function edit($id)
+    {   
+        $almacens =almacen::all();
+        $productos=producto::all();
+        $detalle = DetalleAlmacen::findOrFail($id);
+        return view('detalleAl.edit',compact('detalle','productos','almacenes'));
     }
 
     public function store(Request $request)
     {
-        $detalleAlmacen = DetalleAlmacen::create($request->all());
-        return response()->json($detalleAlmacen, 201);
+        $detalle =new  DetalleAlmacen();
+        $detalle->stock=$request->get('stock');
+        $detalle->id_producto=$request->get('id_producto');
+        $detalle->id_almacen=$request->get('id_almacen');
+        $detalle->save();
+        return redirect('/detalleAl');
     }
 
     public function update(Request $request, $id)
     {
         $detalleAlmacen = DetalleAlmacen::findOrFail($id);
         $detalleAlmacen->update($request->all());
-        return response()->json($detalleAlmacen);
+        return redirect('/detalleAl');
     }
 
     public function destroy($id)
     {
         $detalleAlmacen = DetalleAlmacen::findOrFail($id);
         $detalleAlmacen->delete();
-        return response()->json(null, 204);
+        return redirect('/detalleAl');
     }
 }
