@@ -52,10 +52,10 @@
                 <td>{{$detalle->stock}}</td>
                 <td>
                 
-                    <form action="/detalleAl/{{$detalle->id_producto - $detalle->id_almacen}}/eliminar" method="POST">
+                    <form action="/detalleAl/{{$detalle->id_producto}}/{{$detalle->id_almacen}}/eliminar" method="POST">
                         @CSRF
                         @method('delete')
-                        <a href="/detalleAl/{{$detalle->id_producto - $detalle->id_almacen}}/editar" class="btn btn-info">Editar</a>
+                        <a href="/detalleAl/{{$detalle->id_producto}}/{{$detalle->id_almacen}}/editar" class="btn btn-info">Editar</a>
                         <button type="submit" class="btn btn-danger">Eliminar</button>
                     </form>
             

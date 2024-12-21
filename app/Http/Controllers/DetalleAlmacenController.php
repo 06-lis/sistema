@@ -24,34 +24,42 @@ class DetalleAlmacenController extends Controller
         $productos=producto::all();
         return view('detalleAl.create',compact('almacens','productos'));
     }
-    public function edit($id)
+    public function edit($id1,$id2)
     {   
-        $almacens =almacen::all();
+        $almacenes =almacen::all();
         $productos=producto::all();
-        $detalle = DetalleAlmacen::findOrFail($id);
+        $detalle = DetalleAlmacen::where('id_producto',$id1)->where('id_almacen',$id2)->first();
         return view('detalleAl.edit',compact('detalle','productos','almacenes'));
     }
 
     public function store(Request $request)
     {
-        $detalle =new  DetalleAlmacen();
-        $detalle->stock=$request->get('stock');
-        $detalle->id_producto=$request->get('id_producto');
-        $detalle->id_almacen=$request->get('id_almacen');
+        $detalle =new  detalleAlmacen();
+        $detalle->stock=$request->input('stock');
+        $detalle->id_producto=$request->input('id_producto');
+        $detalle->id_almacen=$request->input('id_almacen');
         $detalle->save();
         return redirect('/detalleAl');
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $id1,$id2)
     {
-        $detalleAlmacen = DetalleAlmacen::findOrFail($id);
-        $detalleAlmacen->update($request->all());
+        
+        $detalleAlmacen = DetalleAlmacen::where('id_producto',$id1)->where('id_almacen',$id2)->first();
+        $detalleAlmacen->stock=$request->input('strok');
+        $detalleAlmacen->id_producto=$request->input('id_producto');
+        $detalleAlmacen->id_almacen=$request->input('id_almacen');
+       
+        //dd($id1,$id2,$request->all());
+        $detalleAlmacen->save();
         return redirect('/detalleAl');
+     
+       
     }
 
-    public function destroy($id)
+    public function destroy($id1,$id2)
     {
-        $detalleAlmacen = DetalleAlmacen::findOrFail($id);
+        $detalleAlmacen = DetalleAlmacen::where('id_producto',$id1)->where('id_almacen',$id2)->first();
         $detalleAlmacen->delete();
         return redirect('/detalleAl');
     }

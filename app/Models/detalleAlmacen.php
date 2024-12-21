@@ -5,14 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+
 class detalleAlmacen extends Model
 {
     use HasFactory;
+
     protected $primaryKey=['id_producto', 'id_almacen'];
+    public $incrementing= false;
+    protected $keyType= 'string';
+
     protected $fillable = [
-        'stock',
-        'id_producto',
-        'id_almacen'
+        'stock'
     ];
 
     public function producto()
