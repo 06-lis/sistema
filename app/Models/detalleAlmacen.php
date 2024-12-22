@@ -10,12 +10,13 @@ class detalleAlmacen extends Model
 {
     use HasFactory;
 
-    protected $primaryKey=['id_producto', 'id_almacen'];
-    public $incrementing= false;
-    protected $keyType= 'string';
+    protected $primaryKey='idDal';
 
     protected $fillable = [
+        'id_producto',
+        'id_almacen',
         'stock'
+
     ];
 
     public function producto()
@@ -30,11 +31,11 @@ class detalleAlmacen extends Model
 
     public function detalleCompra()
     {
-        return $this->hasMany(detalleCompra::class, ['id_producto', 'id_almacen']);
+        return $this->hasMany(detalleCompra::class, 'idDc');
     }
 
     public function detalleVenta()
     {
-        return $this->hasMany(detalleVenta::class, ['id_producto', 'id_almacen']);
+        return $this->hasMany(detalleVenta::class, 'idDv');
     }
 }

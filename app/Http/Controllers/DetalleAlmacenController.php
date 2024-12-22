@@ -45,13 +45,8 @@ class DetalleAlmacenController extends Controller
     public function update(Request $request, $id1,$id2)
     {
         
-        $detalleAlmacen = DetalleAlmacen::where('id_producto',$id1)->where('id_almacen',$id2)->first();
-        $detalleAlmacen->stock=$request->input('strok');
-        $detalleAlmacen->id_producto=$request->input('id_producto');
-        $detalleAlmacen->id_almacen=$request->input('id_almacen');
-       
-        //dd($id1,$id2,$request->all());
-        $detalleAlmacen->save();
+        $detalle = DetalleAlmacen::where('id_producto',$id1)->where('id_almacen',$id2)->first();
+        $detalle->update($request->all());
         return redirect('/detalleAl');
      
        
