@@ -8,6 +8,8 @@ use App\Models\TipoEmpleado;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
+use Faker\Factory as faker;
 
 class EmpleadoController extends Controller
 {
@@ -28,12 +30,25 @@ class EmpleadoController extends Controller
         return view('empleado.create',compact('tipos'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    public function massCreate()
+    {
+        $faker = faker::create();
+        $empleados = [];
+        for ($i = 0; $i < 100; $i++) {
+            $empleados[] = [
+            'nombreEm' => $faker->firstName,
+            'apellidosEm' => $faker->lastName,
+            'sueldoEm' => $faker->numberBetween(1000, 5000),
+            'telefonoEm' => $faker->numerify('6######'),
+            'direccion' => substr($faker->address, 0,40),
+            'id_tipoE' => $faker->numberBetween(2, 3),
+            'created_at' => now(),  
+            'updated_at' => now()
+            ];
+        }
+        DB::table('empleados')->insert($empleados);
+        return view('empleado.index')->with('success', 'Empleados creados exitosamente');
+    }
     public function store(Request $request)
     {
         $empleados = new Empleado();

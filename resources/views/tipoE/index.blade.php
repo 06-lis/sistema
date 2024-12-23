@@ -8,8 +8,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 
     <h2 style= "font-size: 5rem; font-family:'Times New Roman', Times, serif" class="text-center">Lista De Tipos De empleaodos</h2>
-    <a href="/home" class="btn btn-primary"><i class="bi bi-arrow-left"></i> Volver</a>
-    <a href="/tipo/crear" class="btn btn-primary"> Crear +</a>
+    <a href="{{route('home')}}" class="btn btn-primary"><i class="bi bi-arrow-left"></i> Volver</a>
+    <a href="{{route('tipo.create')}}" class="btn btn-primary"> Crear +</a>
     <table class="table table-dark table-striped mt-4">
         <thead>
             <tr>
@@ -28,7 +28,7 @@
                     <form action="/tipo/{{$tipo->id_tipoE}}/eliminar" method="POST">
                         @CSRF
                         @method('delete')
-                        <a href="/tipo/{{$tipo->id_tipoE}}/editar" class="btn btn-info">Editar</a>
+                        <a href="{{route('tipo.edit', $tipo->id_tipoE)}}" class="btn btn-info">Editar</a>
                         <button type="submit" class="btn btn-danger">Eliminar</button>
                     </form>
             

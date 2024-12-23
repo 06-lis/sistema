@@ -8,8 +8,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 
     <h2 style= "font-size: 5rem; font-family:'Times New Roman', Times, serif" class="text-center">Lista De Clientes</h2>
-    <a href="/home" class="btn btn-primary"><i class="bi bi-arrow-left"></i> Volver</a>
-    <a href="/cliente/crear" class="btn btn-primary"> Crear +</a>
+    <a href="{{route('home')}}" class="btn btn-primary"><i class="bi bi-arrow-left"></i> Volver</a>
+    <a href="{{route('cliente.create')}}" class="btn btn-primary"> Crear +</a>
     <table class="table table-dark table-striped mt-4">
         <thead>
             <tr>
@@ -29,10 +29,10 @@
                 <td>{{$cliente->telefonoCl}}</td>
                 <td>
     
-                    <form action="/cliente/{{$cliente->id_cliente}}/eliminar" method="POST">
+                    <form action="{{route('cliente.destroy', $cliente->id_cliente)}}" method="POST">
                         @CSRF
                         @method('delete')
-                        <a href="/cliente/{{$cliente->id_cliente}}/editar" class="btn btn-info">Editar</a>
+                        <a href="{{route('cliente.edit', $cliente->id_cliente)}}" class="btn btn-info">Editar</a>
                         <button type="submit" class="btn btn-danger">Eliminar</button>
                     </form>
             

@@ -8,8 +8,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 
     <h2 style= "font-size: 5rem; font-family:'Times New Roman', Times, serif" class="text-center">Lista De Empleados</h2>
-    <a href="/home" class="btn btn-primary"><i class="bi bi-arrow-left"></i> Volver</a>
-    <a href="/empleado/crear" class="btn btn-primary"> Crear +</a>
+    <a href="{{route('home')}}" class="btn btn-primary"><i class="bi bi-arrow-left"></i> Volver</a>
+    <a href="{{route('empleado.create')}}" class="btn btn-primary"> Crear +</a>
     <table class="table table-dark table-striped mt-4">
         <thead>
             <tr>
@@ -33,10 +33,10 @@
                 <td>{{$empleado->direccion}}</td>
                 <td>
     
-                    <form action="/empleado/{{$empleado->id_empleado}}/eliminar" method="POST">
+                    <form action="{{route('empleado.destroy', $empleado->id_empleado)}}" method="POST">
                         @CSRF
                         @method('delete')
-                        <a href="/empleado/{{$empleado->id_empleado}}/editar" class="btn btn-info">Editar</a>
+                        <a href="{{route('empleado.edit', $empleado->id_empleado)}}" class="btn btn-info">Editar</a>
                         <button type="submit" class="btn btn-danger">Eliminar</button>
                     </form>
             

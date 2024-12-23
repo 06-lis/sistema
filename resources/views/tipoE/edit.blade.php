@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="ruta-a-tu-archivo.css">
 
     <h2 style= "font-size: 5rem; font-family:'Times New Roman', Times, serif" class="text-center">Editar Datos De Un Tipo De Empleado</h2>
-    <form action="/tipo/{{$tipo->id_tipoE}}/actualizar" method="POST">
+    <form action="{{route('tipos.update', $tipo->id)}}" method="POST">
         @method('PUT')
         <!-- CSRF Token (Laravel) -->
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -20,7 +20,7 @@
         <!-- Botones -->
         <div class="mb-3">
             <button type="submit" class="btn btn-primary">Guardar</button>
-            <a href="/tipo" class="btn btn-secondary">Cancelar</a>
+            <a href="{{ route('tipos.index') }}" class="btn btn-secondary">Cancelar</a>
         </div>
     </form>
 @endsection

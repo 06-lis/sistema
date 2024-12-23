@@ -8,8 +8,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 
     <h2 style= "font-size: 5rem; font-family:'Times New Roman', Times, serif" class="text-center">Lista De Almacenes</h2>
-    <a href="/home" class="btn btn-primary"><i class="bi bi-arrow-left"></i> Volver</a>
-    <a href="/almacen/crear" class="btn btn-primary"> Crear +</a>
+    <a href="{{route('home')}}" class="btn btn-primary"><i class="bi bi-arrow-left"></i> Volver</a>
+    <a href="{{route('almacen.create')}}" class="btn btn-primary"> Crear +</a>
     <table class="table table-dark table-striped mt-4">
         <thead>
             <tr>
@@ -29,10 +29,10 @@
                 <td>{{$almacen->direccionAl}}</td>
                 <td>
     
-                    <form action="/almacen/{{$almacen->id_almacen}}/eliminar" method="POST">
+                    <form action="{{route('almacen.destroy', $almacen->id_almacen)}}" method="POST">
                         @CSRF
                         @method('delete')
-                        <a href="/almacen/{{$almacen->id_almacen}}/editar" class="btn btn-info">Editar</a>
+                        <a href="{{route('almacen.edit', $almacen->id_almacen)}}" class="btn btn-info">Editar</a>
                         <button type="submit" class="btn btn-danger">Eliminar</button>
                     </form>
             

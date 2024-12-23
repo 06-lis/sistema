@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="ruta-a-tu-archivo.css">
 
     <h2 style= "font-size: 5rem; font-family:'Times New Roman', Times, serif" class="text-center">Registrar Nuevo Cliente</h2>
-    <form action="/cliente/guardar" method="POST">
+    <form action="{{route('cliente.store')}}" method="POST">
 
         <!-- CSRF Token (Laravel) -->
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -32,7 +32,8 @@
         <!-- Botones -->
         <div class="mb-3">
             <button type="submit" class="btn btn-primary">Guardar</button>
-            <a href="/cliente" class="btn btn-secondary">Cancelar</a>
+            <a href="{{route('cliente.index')}}" class="btn btn-secondary">Cancelar</a>
+            <a href="{{ route('cliente.massCreate') }}" class="btn btn-warning">Llenar Clientes</a> 
         </div>
     </form>
 @endsection

@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="ruta-a-tu-archivo.css">
 
     <h2  style= "font-size: 5rem; font-family:'Times New Roman', Times, serif" class="text-center">Registrar Nuevo Detalle Del Almacen</h2>
-    <form action="/detalleAl/guardar" method="POST">
+    <form action="{{route('detalleAl.store')}}" method="POST">
 
         <!-- CSRF Token (Laravel) -->
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -45,7 +45,8 @@
         <!-- Botones -->
         <div class="mb-3">
             <button type="submit" class="btn btn-primary">Guardar</button>
-            <a href="/detalleAl" class="btn btn-secondary">Cancelar</a>
+            <a href="{{route('detalleAl.index')}}" class="btn btn-secondary">Cancelar</a>
+            <a href="{{ route('detalleAl.massCreate') }}" class="btn btn-warning">Llenar Detalles</a>
         </div>
     </form>
 @endsection

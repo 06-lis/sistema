@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="ruta-a-tu-archivo.css">
 
     <h2 style= "font-size: 5rem; font-family:'Times New Roman', Times, serif" class="text-center">Editar Datos Del Almacen</h2>
-    <form action="/almacen/{{$almacen->id_almacen}}/actualizar" method="POST">
+    <form action="{{route('almacen.update', $almacen->id)}}" method="POST">
         @method('PUT')
         <!-- CSRF Token (Laravel) -->
         <input type="hidden" name="_token" value="{{ csrf_token() }}">

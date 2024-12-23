@@ -6,46 +6,55 @@
     <link rel="stylesheet" href="ruta-a-tu-archivo.css">
 
     <h2 style= "font-size: 5rem; font-family:'Times New Roman', Times, serif" class="text-center" >Editar Datos De Detalle Del Almacen</h2>
-    <form action="/detalleAl/{{$detalle->id_producto}}/{{$detalle->id_almacen}}/actualizar" method="POST">
+    <form action="{{route('detalleVe.update', $detalleVe->id)}}" method="POST">
         @method('PUT')
         <!-- CSRF Token (Laravel) -->
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
-
-          <!-- Tipo de producto-->
-          <div class="mb-3">
-            <label for="id_tipoE" class="form-label">Elija el producto:</label>
-                <select id="id_tipoE" name="id_producto" class="form-select" required>
-                    <option value="" disabled selected>Seleccione el producto</option>
-                    @foreach ($productos as $producto)
-                       <option value={{$producto->id_producto}}> {{$producto->nombrePr}} </option>
-                    @endforeach
-                <!-- Agrega más opciones según los tipos disponibles -->
+             <!-- fecha -->
+             <div class="mb-3">
+                <label for="id_tipoE" class="form-label">Elija la fecha de la venta:</label>
+                    <select id="id_tipoE" name="id_venta" class="form-select" required>
+                        <option value="" disabled selected>Seleccione la fecha</option>
+                        @foreach ($ventas as $venta)
+                           <option value={{$venta->id_venta}}> {{$venta->fechaVe}} </option>
+                        @endforeach
+                    <!-- Agrega más opciones según los tipos disponibles -->
+                    </select>
+            </div>
+    
+            <div class="mb-3">
+                <select id="id_tipoE" name="idDal" class="form-select" required>
+                    <option value="" disabled selected>Seleccione detalle del almacen</option>
+                        @foreach($detalleAs as $detalleA)
+                            @foreach($productos as $producto)
+                                @foreach($almacenes as $almacen)
+                                    @if (($detalleA->id_almacen==$almacen->id_almacen) and ($detalleA->id_producto==$producto->id_producto))
+                                        <option value={{$detalleA->idDal}}> {{$producto->nombrePr}}-{{$almacen->nombreAl}} </option>
+                                    @endif       
+                                @endforeach
+                            @endforeach
+                        @endforeach    
                 </select>
-        </div>
-
-           <!-- Tipo de almacen -->
-        <div class="mb-3">
-            <label for="id_tipoE" class="form-label">Elija el almacen:</label>
-                <select id="id_tipoE" name="id_almacen" class="form-select" required>
-                    <option value="" disabled selected>Seleccione el almacen</option>
-                    @foreach ($almacenes as $almacen)
-                       <option value={{$almacen->id_almacen}}> {{$almacen->nombreAl}} </option>
-                    @endforeach
-                <!-- Agrega más opciones según los tipos disponibles -->
-                </select>
-        </div>
-
-        
-           <!-- fecha -->
-        <div class="mb-3">
-            <label for="ubicacion" class="form-label">Stock disponible del producto:</label>
-            <input type="integer" id="ubicacion" name="stock" class="form-control" value="{{$detalle->stock}}" required>
-        </div>
+            </div>
+    
+               <!-- precio -->
+            <div class="mb-3">
+                <label for="ubicacion" class="form-label">Precio del prodcuto:</label>
+                <input type="float" id="ubicacion" name="precioDv" class="form-control" placeholder="Ingrese el precio" required>
+            </div>
+    
+            
+               <!-- cantidad -->
+            <div class="mb-3">
+                <label for="ubicacion" class="form-label">Cantidad del producto:</label>
+                <input type="integer" id="ubicacion" name="cantidadDv" class="form-control" placeholder="Ingrese la cantidad" required>
+            </div>
+    
 
         <!-- Botones -->
         <div class="mb-3">
             <button type="submit" class="btn btn-primary">Guardar</button>
-            <a href="/detalleAl" class="btn btn-secondary">Cancelar</a>
+            <a href="{{route('detalleVe.index')}}" class="btn btn-secondary">Cancelar</a>
         </div>
     </form>
 @endsection

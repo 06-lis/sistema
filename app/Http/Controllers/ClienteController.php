@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\cliente;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Faker\Factory as faker;
 
 class ClienteController extends Controller
 {
@@ -29,6 +31,22 @@ class ClienteController extends Controller
         $cliente = Cliente::create($request->all());
         $cliente->save();
         return redirect('/cliente');
+    }
+    public function massCreate(Request $request)
+    {
+        $faker = faker::create();   
+        $cliente = [];
+        for ($i = 0; $i < 400; $i++) {
+            $cliente[] = [
+                'nombreCl' => $faker->firstName,
+                'apellidosCl' => $faker->lastName,
+                'telefonoCl' => $faker->numerify('7######'),
+                'created_at' => now(),
+                'updated_at' => now()
+            ];
+        }
+        DB::table('clientes')->insert($cliente);
+        return redirect('cliente.index')->with('success', 'Clientes creados exitosamente');
     }
 
     public function update(Request $request, $id)

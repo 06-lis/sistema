@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 
     <h2 style= "font-size: 5rem; font-family:'Times New Roman', Times, serif" class="text-center">Lista De Detalles De los Almacenes</h2>
-    <a href="/home" class="btn btn-primary"><i class="bi bi-arrow-left"></i> Volver</a>
-    <a href="/detalleAl/crear" class="btn btn-primary"> Crear +</a>
+    <a href="{{route('home')}}" class="btn btn-primary"><i class="bi bi-arrow-left"></i> Volver</a>
+    <a href="{{route('detalleAl.create')}}" class="btn btn-primary"> Crear +</a>
     <table class="table table-dark table-striped mt-4">
         <thead>
             <tr>
@@ -52,10 +52,10 @@
                 <td>{{$detalle->stock}}</td>
                 <td>
                 
-                    <form action="/detalleAl/{{$detalle->id_producto}}/{{$detalle->id_almacen}}/eliminar" method="POST">
+                    <form action="{{route('detalleAl.destroy', [$detalle->id_producto, $detalle->id_almacen])}}" method="POST">
                         @CSRF
                         @method('delete')
-                        <a href="/detalleAl/{{$detalle->id_producto}}/{{$detalle->id_almacen}}/editar" class="btn btn-info">Editar</a>
+                        <a href="{{route('detalleAl.edit', [$detalle->id_producto, $detalle->id_almacen])}}" class="btn btn-info">Editar</a>
                         <button type="submit" class="btn btn-danger">Eliminar</button>
                     </form>
             
