@@ -102,4 +102,18 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'home']);
     route::get('/detalleAl/{id1}/{id2}/editar',[DetalleAlmacenController::class, 'edit'])->name('home');
     route::Put('/detalleAl/{id1}/{id2}/actualizar', [DetalleAlmacenController::class, 'update'])->name('home');
     route::delete('/detalleAl/{id1}/{id2}/eliminar', [DetalleAlmacenController::class, 'destroy'])->name('home');
+    //rutas para detalle compra
+     route::get('/detalleCo', [DetalleCompraController::class, 'index'])->name('home');
+     route::get('/detalleCo/crear', [DetalleCompraController::class, 'create'])->name('home');
+     route::post('/detalleCo/guardar',[DetalleCompraController::class, 'store'])->name('home');
+     route::get('/detalleCo/{id1}/{id2}/editar',[DetalleCompraController::class, 'edit'])->name('home');
+     route::Put('/detalleCo/{id1}/{id2}/actualizar', [DetalleCompraController::class, 'update'])->name('home');
+     route::delete('/detalleCo/{id1}/{id2}/eliminar', [DetalleCompraController::class, 'destroy'])->name('home');
+    //rutas para detalle venta
+    route::get('/detalleVe', [DetalleVentaController::class, 'index'])->name('home');
+    route::get('/detalleVe/crear', [DetalleVentaController::class, 'create'])->name('home');
+    route::post('/detalleVe/guardar',[DetalleVentaController::class, 'store'])->name('home');
+    route::get('/detalleVe/{id1}/{id2}/editar',[DetalleVentaController::class, 'edit'])->name('home');
+    route::Put('/detalleVe/{id1}/{id2}/actualizar', [DetalleVentaController::class, 'update'])->name('home');
+    route::delete('/detalleVe/{id1}/{id2}/eliminar', [DetalleVentaController::class, 'destroy'])->name('home');
 });

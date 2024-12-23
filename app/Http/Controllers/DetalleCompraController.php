@@ -3,39 +3,67 @@
 namespace App\Http\Controllers;
 
 use App\Models\detalleCompra;
+use App\Models\Compra;
+use App\Models\detalleAlmacen;
+use App\Models\producto;
+use App\Models\almacen;
 use Illuminate\Http\Request;
 
 class DetalleCompraController extends Controller
 {
     public function index()
     {
-        $detallesCompras = DetalleCompra::all();
-        return response()->json($detallesCompras);
+        $detalleAs = DetalleAlmacen::all();
+        $detalleCs =detalleCompra::all();
+        $compras=compra::all();
+
+        return view('detalleCo.index',compact('detalleAs','detalleCs','compras'));
     }
 
-    public function show($id)
+    public function create()
+    { 
+        $compras=compra::all();
+        $detalleAs=detalleAlmacen::all();
+        $productos=producto::all();
+        $almacenes=almacen::all();
+        return view('detalleCo.create',compact('compras','productos','almacenes','detalleAs'));
+    }
+    public function edit($id1, $id2)
     {
-        $detalleCompra = DetalleCompra::findOrFail($id);
-        return response()->json($detalleCompra);
+        $detalleC=detalleCompra::where('idDc',$id1)->where('idDal',$id2)->first();
+        $productos=producto::all();
+        $detalleAs=detalleAlmacen::all();
+        $almacenes=almacen::all();
+        $compras=compra::all();
+        return view('detalleCo.edit',compact('compras','productos','almacenes','detalleC','detalleAs'));
+      
     }
 
     public function store(Request $request)
     {
+        //dd($request->all());
         $detalleCompra = DetalleCompra::create($request->all());
-        return response()->json($detalleCompra, 201);
+        $detallaAlmacen=detalleAlmacen::find($request->get("idDal"));
+        $sum1=$detallaAlmacen->stock;
+        $sum2=$detalleCompra->get("cantidadDc");
+        //$sun3=$sum1+$sum2;
+        //$detallaAlmacen->stock=$sum1+$sum2;
+        //$detallaAlmacen->save();
+        return redirect("/detalleCo");
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $id1,$id2)
     {
-        $detalleCompra = DetalleCompra::findOrFail($id);
+        //dd($request->all());
+        $detalleCompra = DetalleCompra::where('idDc',$id1)->where('idDal',$id2)->first();
         $detalleCompra->update($request->all());
-        return response()->json($detalleCompra);
+        return redirect('/detalleCo');
     }
 
-    public function destroy($id)
+    public function destroy($id1,$id2)
     {
-        $detalleCompra = DetalleCompra::findOrFail($id);
+        $detalleCompra = DetalleCompra::where('idDc',$id1)->where('idDal',$id2);
         $detalleCompra->delete();
-        return response()->json(null, 204);
+        return redirect('/detalleCo');
     }
 }
